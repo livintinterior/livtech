@@ -1,0 +1,319 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================
+// AUTH (NextAuth.js v5 / Auth.js)
+// =============================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(EDITOR)
+  accounts      Account[]
+  sessions      Session[]
+  activityLogs  ActivityLog[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+// =============================================
+// CONTENT
+// =============================================
+
+model Service {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  description  String
+  longDesc     String?  @db.Text
+  icon         String
+  image        String?
+  color        String?
+  features     Json
+  technologies String[]
+  metaTitle    String?
+  metaDesc     String?
+  order        Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Portfolio {
+  id           String     @id @default(cuid())
+  title        String
+  slug         String     @unique
+  client       String
+  category     String
+  tags         String[]
+  thumbnail    String
+  images       String[]
+  description  String
+  challenge    String?    @db.Text
+  solution     String?    @db.Text
+  results      Json?
+  technologies String[]
+  liveUrl      String?
+  githubUrl    String?
+  caseStudyId  String?
+  caseStudy    CaseStudy? @relation(fields: [caseStudyId], references: [id])
+  featured     Boolean    @default(false)
+  order        Int        @default(0)
+  published    Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model CaseStudy {
+  id          String      @id @default(cuid())
+  title       String
+  slug        String      @unique
+  client      String
+  industry    String
+  summary     String
+  content     Json
+  metrics     Json
+  thumbnail   String
+  portfolio   Portfolio[]
+  metaTitle   String?
+  metaDesc    String?
+  published   Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String
+  content     Json
+  thumbnail   String?
+  author      String    @default("Livetech Team")
+  authorImage String?
+  tags        String[]
+  category    String
+  readTime    Int       @default(5)
+  metaTitle   String?
+  metaDesc    String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  company     String
+  role        String
+  content     String   @db.Text
+  rating      Int      @default(5)
+  avatar      String?
+  projectType String?
+  featured    Boolean  @default(false)
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model PricingPlan {
+  id           String  @id @default(cuid())
+  name         String
+  description  String
+  monthlyPrice Decimal @db.Decimal(10, 2)
+  annualPrice  Decimal @db.Decimal(10, 2)
+  features     String[]
+  highlighted  Boolean @default(false)
+  ctaText      String  @default("Get Started")
+  order        Int     @default(0)
+  active       Boolean @default(true)
+}
+
+model Career {
+  id           String         @id @default(cuid())
+  title        String
+  slug         String         @unique
+  department   String
+  type         EmploymentType
+  location     String
+  remote       Boolean        @default(false)
+  description  Json
+  requirements String[]
+  benefits     String[]
+  salaryMin    Int?
+  salaryMax    Int?
+  active       Boolean        @default(true)
+  applications Application[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
+model Application {
+  id          String    @id @default(cuid())
+  careerId    String
+  career      Career    @relation(fields: [careerId], references: [id])
+  name        String
+  email       String
+  phone       String?
+  resumeUrl   String
+  coverLetter String?   @db.Text
+  status      AppStatus @default(PENDING)
+  createdAt   DateTime  @default(now())
+}
+
+enum AppStatus {
+  PENDING
+  REVIEWING
+  INTERVIEWED
+  OFFERED
+  REJECTED
+}
+
+// =============================================
+// LEADS & CONTACTS
+// =============================================
+
+model Lead {
+  id         String     @id @default(cuid())
+  name       String
+  email      String
+  phone      String?
+  company    String?
+  service    String?
+  budget     String?
+  message    String     @db.Text
+  source     LeadSource
+  status     LeadStatus @default(NEW)
+  assignedTo String?
+  notes      String?    @db.Text
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+enum LeadSource {
+  CONTACT_FORM
+  QUOTE_REQUEST
+  CONSULTATION
+  NEWSLETTER
+  REFERRAL
+  ORGANIC
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL
+  NEGOTIATING
+  WON
+  LOST
+}
+
+model NewsletterSubscriber {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  name        String?
+  active      Boolean   @default(true)
+  confirmedAt DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+// =============================================
+// SYSTEM
+// =============================================
+
+model SeoSetting {
+  id          String   @id @default(cuid())
+  path        String   @unique
+  title       String?
+  description String?  @db.Text
+  ogImage     String?
+  noIndex     Boolean  @default(false)
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model MediaFile {
+  id        String   @id @default(cuid())
+  url       String
+  key       String   @unique
+  name      String
+  size      Int
+  mimeType  String
+  folder    String?
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  entity    String
+  entityId  String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 330 330" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- L shape: bright lime green top → rich green bottom -->
+    <linearGradient id="l-grad" x1="52" y1="48" x2="112" y2="292" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#4ADE80"/>
+      <stop offset="55%"  stop-color="#22C55E"/>
+      <stop offset="100%" stop-color="#16A34A"/>
+    </linearGradient>
+    <!-- Arrow shape: cyan top → deep blue bottom-right -->
+    <linearGradient id="a-grad" x1="178" y1="50" x2="302" y2="292" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#22D3EE"/>
+      <stop offset="50%"  stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Upward arrow (drawn first, behind L) -->
+  <!-- Two arms of the ^ shape meeting at top peak, spreading to bottom -->
+  <path d="M178 50 L260 50 L302 292 L252 292 L220 194 L190 292 L142 292 Z" fill="url(#a-grad)"/>
+
+  <!-- L shape (drawn on top — foot overlaps arrow left arm) -->
+  <path d="M52 48 L112 48 L112 238 L170 238 L170 292 L52 292 Z" fill="url(#l-grad)"/>
+</svg>

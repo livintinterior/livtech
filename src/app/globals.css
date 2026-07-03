@@ -1,26 +1,380 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* =============================================
+   LIVETECH.IN — DESIGN SYSTEM v2
+   Sage / Olive Dark Theme
+   ============================================= */
 
 @theme inline {
+  /* Core palette */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Sage palette */
+  --color-sage-50:  rgba(134, 163, 114, 0.05);
+  --color-sage-100: rgba(134, 163, 114, 0.10);
+  --color-sage-200: rgba(134, 163, 114, 0.20);
+  --color-sage-300: #b8cfa8;
+  --color-sage-400: #a0bc8c;
+  --color-sage-500: #86a372;
+  --color-sage-600: #6b8a59;
+  --color-sage-700: #527040;
+
+  /* Warm olive accent */
+  --color-olive-300: #c4ba88;
+  --color-olive-400: #b0a870;
+  --color-olive-500: #8a8448;
+
+  /* Surface tokens */
+  --color-surface-50:  #f8f8f6;
+  --color-surface-900: #0d0d0b;
+  --color-surface-950: #080808;
+
+  /* Dark UI surfaces */
+  --color-dark-50:     rgba(255,255,255,0.03);
+  --color-dark-100:    rgba(255,255,255,0.05);
+  --color-dark-200:    rgba(255,255,255,0.08);
+  --color-dark-border: rgba(255,255,255,0.06);
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Animations */
+  --animate-fade-up:         fade-up 0.6s ease forwards;
+  --animate-fade-in:         fade-in 0.4s ease forwards;
+  --animate-float:           float 6s ease-in-out infinite;
+  --animate-float-delayed:   float 6s ease-in-out 2s infinite;
+  --animate-pulse-slow:      pulse-slow 5s ease-in-out infinite;
+  --animate-spin-slow:       spin-slow 24s linear infinite;
+  --animate-marquee:         marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 40s linear infinite;
+  --animate-shimmer:         shimmer 2.5s linear infinite;
+  --animate-scale-in:        scale-in 0.3s ease forwards;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =============================================
+   CSS VARIABLES — SAGE DARK THEME
+   ============================================= */
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a08;
+
+  /* Glass morphism */
+  --glass-bg:    rgba(0, 0, 0, 0.025);
+  --glass-bg-md: rgba(0, 0, 0, 0.040);
+  --glass-border:       rgba(0, 0, 0, 0.060);
+  --glass-border-hover: rgba(0, 0, 0, 0.120);
+  --glass-blur: 20px;
+
+  /* Sage glow colors */
+  --glow-brand:    rgba(105, 135, 85, 0.25);
+  --glow-accent:   rgba(140, 120, 70, 0.20);
+  --glow-warm:     rgba(180, 165, 110, 0.15);
+
+  /* Aurora colors — sage / olive */
+  --aurora-1: #3d5230;
+  --aurora-2: #5a4e28;
+  --aurora-3: #2e4228;
+  --aurora-4: #4a4030;
+
+  /* Gradient definitions */
+  --gradient-brand:  linear-gradient(135deg, #3d5a2e 0%, #4a6b38 50%, #5a7a40 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(61,90,46,0.08), rgba(74,107,56,0.06));
+  --gradient-card:   linear-gradient(145deg, rgba(248,248,246,0.95), rgba(245,245,243,0.98));
+  --gradient-hero:   radial-gradient(ellipse at 50% 0%, rgba(134,163,114,0.10) 0%, transparent 60%);
+
+  /* Shadows */
+  --shadow-brand: 0 0 40px rgba(61, 90, 46, 0.15);
+  --shadow-card:  0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
+  --shadow-glow:  0 0 80px rgba(134, 163, 114, 0.10);
+
+  /* Border radius tokens */
+  --radius-xl:  1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+/* =============================================
+   KEYFRAMES
+   ============================================= */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position:  200% 0; }
+}
+
+@keyframes glow-pulse {
+  from { box-shadow: 0 0 20px rgba(105,135,85,0.15), 0 0 40px rgba(105,135,85,0.06); }
+  to   { box-shadow: 0 0 40px rgba(105,135,85,0.30), 0 0 80px rgba(105,135,85,0.12); }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-up-card {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bar-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+/* =============================================
+   BASE STYLES
+   ============================================= */
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
 }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f5f5f3; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(61,90,46,0.35); }
+
+/* Selection */
+::selection {
+  background: rgba(134, 163, 114, 0.28);
+  color: #0a0a08;
+}
+
+/* =============================================
+   UTILITY CLASSES — GLASS
+   ============================================= */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-dark {
+  background: rgba(248, 248, 246, 0.80);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* =============================================
+   GRADIENT TEXT — SAGE EDITION
+   ============================================= */
+
+.gradient-text {
+  color: #0a0a08;
+  -webkit-text-fill-color: #0a0a08;
+}
+
+.gradient-text-static {
+  color: #0a0a08;
+  -webkit-text-fill-color: #0a0a08;
+}
+
+/* =============================================
+   GLOW EFFECTS
+   ============================================= */
+
+.glow-brand {
+  box-shadow: var(--shadow-brand);
+}
+
+.glow-text {
+  text-shadow: 0 0 30px rgba(134, 163, 114, 0.5);
+}
+
+.glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite alternate;
+}
+
+/* =============================================
+   GRADIENT BORDER
+   ============================================= */
+
+.gradient-border {
+  position: relative;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+              linear-gradient(135deg, rgba(61,90,46,0.35), rgba(74,107,56,0.25), rgba(61,90,46,0.35)) border-box;
+  border: 1px solid transparent;
+}
+
+/* =============================================
+   NOISE / GRAIN TEXTURE
+   ============================================= */
+
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+  border-radius: inherit;
+}
+
+/* =============================================
+   AURORA / AMBIENT GLOW
+   ============================================= */
+
+.aurora-bg {
+  background: linear-gradient(125deg, var(--aurora-1), var(--aurora-2), var(--aurora-3), var(--aurora-4));
+  background-size: 400% 400%;
+  animation: gradient-shift 14s ease infinite alternate;
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+
+.animate-float          { animation: float 6s ease-in-out infinite; }
+.animate-float-delayed  { animation: float 6s ease-in-out 1.5s infinite; }
+.animate-marquee        { animation: marquee 40s linear infinite; }
+.animate-marquee-reverse { animation: marquee-reverse 40s linear infinite; }
+
+/* =============================================
+   PATTERNS
+   ============================================= */
+
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.dot-pattern {
+  background-image: radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.radial-glow {
+  background: radial-gradient(ellipse at center, rgba(105,135,85,0.12) 0%, transparent 70%);
+}
+
+/* =============================================
+   CARD SHINE EFFECT
+   ============================================= */
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0,0,0,0.04) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* =============================================
+   COMPONENT OVERRIDES
+   ============================================= */
+
+/* Sonner toast */
+[data-sonner-toaster] {
+  --normal-bg:     #f8f8f6 !important;
+  --normal-border: rgba(0,0,0,0.06) !important;
+  --normal-text:   #0a0a08 !important;
+}
+
+/* Focus ring — sage */
+:focus-visible {
+  outline: 2px solid rgba(134, 163, 114, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Prose */
+.prose-dark          { color: rgba(0,0,0,0.55); }
+.prose-dark h1, .prose-dark h2, .prose-dark h3,
+.prose-dark h4, .prose-dark h5, .prose-dark h6 { color: #0a0a08; }
+.prose-dark a        { color: #3d5a2e; }
+.prose-dark code {
+  background: rgba(61,90,46,0.08);
+  color: #3d5a2e;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+.prose-dark pre {
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.07);
+}
+
+/* No scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* =============================================
+   HERO FLOATING CARD ANIMATIONS
+   ============================================= */
+
+.card-float-1 { animation: float 7s ease-in-out infinite; }
+.card-float-2 { animation: float 8s ease-in-out 1s infinite; }
+.card-float-3 { animation: float 6s ease-in-out 2s infinite; }
+.card-float-4 { animation: float 9s ease-in-out 0.5s infinite; }
