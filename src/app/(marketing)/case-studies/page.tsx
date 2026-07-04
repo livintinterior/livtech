@@ -41,7 +41,7 @@ export default function CaseStudiesPage() {
             Real Projects. <span className="gradient-text-static">Real Results.</span>
           </h1>
           <p className="text-[15px] text-black/60 max-w-xl mx-auto leading-relaxed">
-            Deep dives into how we've solved complex business problems with technology â€” with measurable outcomes.
+            Deep dives into how we've solved complex business problems with technology â€" with measurable outcomes.
           </p>
         </div>
       </section>

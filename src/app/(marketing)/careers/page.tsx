@@ -59,9 +59,9 @@ export default function CareersPage() {
                       <h3 className="text-[13px] font-semibold text-black/90 group-hover:text-[#0a0a08] transition-colors">{job.title}</h3>
                       <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                         <span className="text-[11px] text-black/50">{job.department}</span>
-                        <span className="text-black/52">Â·</span>
+                        <span className="text-black/52">·</span>
                         <span className="flex items-center gap-1 text-[11px] text-black/50"><MapPin className="w-3 h-3" />{job.location}</span>
-                        <span className="text-black/52">Â·</span>
+                        <span className="text-black/52">·</span>
                         <span className="flex items-center gap-1 text-[11px] text-black/50"><Clock className="w-3 h-3" />{job.type}</span>
                       </div>
                     </div>

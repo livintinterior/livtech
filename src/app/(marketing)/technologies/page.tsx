@@ -4,17 +4,17 @@ import { Technologies } from "@/components/sections/Technologies";
 import { CTA } from "@/components/sections/CTA";
 
 export const metadata: Metadata = {
-  title: “Technologies”,
-  description: “Explore the 50+ technologies Livtech works with -- from React and Next.js to AWS, Python, Flutter, and TensorFlow.”,
-  keywords: [“React development”, “Next.js agency”, “Flutter app development”, “AWS cloud services”, “Python AI development”, “Node.js backend”],
-  alternates: { canonical: “https://livetech.in/technologies” },
+  title: "Technologies",
+  description: "Explore the 50+ technologies Livtech works with -- from React and Next.js to AWS, Python, Flutter, and TensorFlow.",
+  keywords: ["React development", "Next.js agency", "Flutter app development", "AWS cloud services", "Python AI development", "Node.js backend"],
+  alternates: { canonical: "https://livetech.in/technologies" },
   openGraph: {
-    title: “Technologies | Livtech”,
-    description: “50+ technologies -- React, Next.js, Flutter, AWS, Python, TensorFlow, and more. We use the right stack for your project.”,
-    url: “https://livetech.in/technologies”,
-    images: [{ url: “/images/og-image.png”, width: 1200, height: 630, alt: “Livtech Tech Stack” }],
+    title: "Technologies | Livtech",
+    description: "50+ technologies -- React, Next.js, Flutter, AWS, Python, TensorFlow, and more. We use the right stack for your project.",
+    url: "https://livetech.in/technologies",
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: "Livtech Tech Stack" }],
   },
-  twitter: { card: “summary_large_image”, title: “Technologies | Livtech”, description: “50+ technologies -- React, Next.js, Flutter, AWS, Python, TensorFlow, and more.” },
+  twitter: { card: "summary_large_image", title: "Technologies | Livtech", description: "50+ technologies -- React, Next.js, Flutter, AWS, Python, TensorFlow, and more." },
 };
 
 export default function TechnologiesPage() {

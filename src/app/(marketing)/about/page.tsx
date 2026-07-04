@@ -4,7 +4,7 @@ import { AboutContent } from "./_components/AboutContent";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Learn about Livtech — a modern technology company delivering complete digital transformation solutions. Our story, mission, team, and values.",
+  description: "Learn about Livtech -- a modern technology company delivering complete digital transformation solutions. Our story, mission, team, and values.",
   keywords: ["about Livtech", "technology company Hyderabad", "software company India", "IT company founders", "digital transformation team"],
   alternates: { canonical: "https://livetech.in/about" },
   openGraph: {

@@ -66,7 +66,7 @@ export default function TestimonialsPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[12px] font-semibold text-[#0a0a08]">{name}</p>
-                    <p className="text-[10px] text-black/50 truncate">{role} · {company}</p>
+                    <p className="text-[10px] text-black/50 truncate">{role} . {company}</p>
                   </div>
                   <span className="px-2 py-0.5 rounded-full bg-black/[0.04] border border-black/[0.08] text-[9px] font-medium text-black/52 flex-shrink-0">{category}</span>
                 </div>
